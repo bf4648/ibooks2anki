@@ -1,5 +1,6 @@
 #!/usr/bin/env fish
 function ibooksCreateCSVFromClipboard
+	# this assumes that you have emailed your iBook notes to your email and have copied all the notes to your clipboard
 	set -l bookTitle $argv
 
 	# Requies gnu sed and csplit: `brew install gnu-sed csplit`
