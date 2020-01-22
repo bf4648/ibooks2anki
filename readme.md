@@ -1,4 +1,4 @@
-# EXPORT IBOOKS NOTES BY MAILING THE NOTES TO YOURSELF OR TO YOURSELF FROM INSIDE YOUR IBOOK APP
+# EXPORT IBOOKS NOTES into Anki by emailing the notes to your yourself and importing the csv file
 
 ## Step 1 – Inside iBooks, you can click on a book.
 
@@ -40,3 +40,9 @@ Note that you can also copy and paste out of this note if you wanted to move the
 ![FigureF](pngs/2013-11-20-19.38.19.png)
 
 ## Step 8: Choose Mail and send the email to yourself. (Figure F)
+
+## Step 9: Select all the notes in your email and copy them to your clipboard.
+
+## Step 10: Run the 'createCSVFromiBooks.fish' script to import the notes on your clipboard to a csv file
+
+## Step 11: Import the csv file into Anki
