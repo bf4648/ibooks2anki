@@ -46,7 +46,7 @@ function ibooksCreateCSVFromClipboard
 		echo "Tags: $tags"
 
 		# output
-		# echo -e "$front\t$back\t$tags $lowerTitle" >> $outputFile
+		echo -e "$front\t$back\t$tags $lowerTitle" >> $outputFile
 	end
 
 	echo "Output file is @ $outputFile"
