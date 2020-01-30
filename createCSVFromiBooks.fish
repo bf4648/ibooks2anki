@@ -33,7 +33,8 @@ function ibooksCreateCSVFromClipboard
 		# format tag chapter
 		set -l unformattedTagChapter (cat $txtFile | head -n 2 | tail -n 1)
 		set -l removeColonInTagChapter (echo $unformattedTagChapter | tr -d ':')
-		set -l replaceSpaceWithDashInTagChapter (echo $removeColonInTagChapter | tr ' ' '-')
+		set -l removeDot (echo $removeColonInTagChapter | tr -d '.')
+		set -l replaceSpaceWithDashInTagChapter (echo $removeDot | tr ' ' '-')
 		set -l lowerCaseTagChapter (echo $replaceSpaceWithDashInTagChapter | tr [:upper:] [:lower:])
 
 		# format tag title
@@ -50,4 +51,8 @@ function ibooksCreateCSVFromClipboard
 	echo "Output file is @ $outputFile"
 end
 
-ibooksCreateCSVFromClipboard
+if test -n "$argv"
+	ibooksCreateCSVFromClipboard $argv
+else
+	echo 'This script needs a title, i.e. ./createCSVFromiBooks.fish "Book Title"'
+end
