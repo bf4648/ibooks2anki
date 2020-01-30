@@ -43,7 +43,7 @@ function ibooksCreateCSVFromClipboard
 
 		# set tags
 		set -l tags (echo $lowerCaseTagBookTitle $lowerCaseTagChapter)
-		echo "Tags: $tags"
+		# echo "Tags: $tags"
 
 		# output
 		echo -e "$front\t$back\t$tags $lowerTitle" >> $outputFile
