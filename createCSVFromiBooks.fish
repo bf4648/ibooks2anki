@@ -33,8 +33,8 @@ function ibooksCreateCSVFromClipboard
 		# format tag chapter
 		set -l unformattedTagChapter (cat $txtFile | head -n 2 | tail -n 1)
 		set -l removeColonInTagChapter (echo $unformattedTagChapter | tr -d ':')
-		set -l removeDot (echo $removeColonInTagChapter | tr -d '.')
-		set -l replaceSpaceWithDashInTagChapter (echo $removeDot | tr ' ' '-')
+		set -l removeDotInTag (echo $removeColonInTagChapter | tr -d '.')
+		set -l replaceSpaceWithDashInTagChapter (echo $removeDotInTag | tr ' ' '-')
 		set -l lowerCaseTagChapter (echo $replaceSpaceWithDashInTagChapter | tr [:upper:] [:lower:])
 
 		# format tag title
@@ -43,9 +43,10 @@ function ibooksCreateCSVFromClipboard
 
 		# set tags
 		set -l tags (echo $lowerCaseTagBookTitle $lowerCaseTagChapter)
+		echo "Tags: $tags"
 
 		# output
-		echo -e "$front\t$back\t$tags $lowerTitle" >> $outputFile
+		# echo -e "$front\t$back\t$tags $lowerTitle" >> $outputFile
 	end
 
 	echo "Output file is @ $outputFile"
