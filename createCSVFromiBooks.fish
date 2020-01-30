@@ -10,7 +10,7 @@ function ibooksCreateCSVFromClipboard
 	# tmp output
 	set -l tmpOutputDir /tmp/notes
 	set -l tmpOutputFile $tmpOutputDir/output.txt
-	set -l outputFile ~/Downloads/ibook-notes.txt
+	set -l outputFile ~/Downloads/ibook-notes.csv
 
 	# clean
 	rm -rfv $tmpOutputDir

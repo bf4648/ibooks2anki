@@ -56,7 +56,7 @@ git clone git@github.com:bf4648/ibooks2anki.git
 ```shell
 brew install fish
 cd /path/to/repo
-./createCSVFromiBooks.fish
+./createCSVFromiBooks.fish 'Book Title'
 ```
 
 ## Step 12: Import the csv file into Anki
