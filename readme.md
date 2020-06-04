@@ -41,16 +41,20 @@ Note that you can also copy and paste out of this note if you wanted to move the
 
 ## Step 8: Choose Mail and send the email to yourself. (Figure F)
 
-## Step 9: Clone the repo
+## Step 9: In the email choose to print the email to PDF
+
+![FigureG](pngs/save-as-pdf.png)
+
+## Step 10: Clone the repo
 
 ```shell
 git clone git@github.com:bf4648/ibooks2anki.git
 
 ```
 
-## Step 10: Select all the notes in your email and copy them to your clipboard.
+## Step 11: Select all the notes in your email and copy them to your clipboard.
 
-## Step 11: Run the createCSVFromiBooks.fish script from the terminal
+## Step 12: Run the createCSVFromiBooks.fish script from the terminal
 
 
 ```shell
@@ -59,7 +63,7 @@ cd /path/to/repo
 ./createCSVFromiBooks.fish
 ```
 
-## Step 12: Import the csv file into Anki
+## Step 13: Import the csv file into Anki
 
 ```shell
 In ANKI choose File > Import > choose the csv file in ~/Downloads dir
