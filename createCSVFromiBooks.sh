@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
+set -e
+set -u
+
+script_pwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+project_root=$( cd "$( dirname "${script_pwd}" )" && pwd )
 
 # Requies gnu sed and csplit: 
 # `brew install gnu-sed coreutils` (coreutils contains gnu csplit)
 
 # binaries
-csplit=/usr/local/opt/coreutils/libexec/gnubin/csplit
 gnuSed=/usr/local/opt/gnu-sed/libexec/gnubin/sed
 pdf2txt=/usr/local/bin/pdftotext
 
@@ -12,18 +16,19 @@ pdf2txt=/usr/local/bin/pdftotext
 downloadFile=$HOME/Downloads/Notes_from_How_Emotions_Are_Made_The_Secret_Life_of_the_Brain_by_Lisa_Feldman_Barrett.pdf
 
 # output
-tmpOutputDir=/tmp/notes
-tmpOutputFile="$tmpOutputDir"/output.txt
+workspace=/tmp/workspace
+tmpOutputFile="$workspace"/output.txt
+regExMatchDir="$workspace"/regExMatch
 outputFile="$HOME"/Downloads/ibook-notes.txt
-tmpOutputDirFiles=`/usr/bin/find $tmpOutputDir -iname "*.txt" -type f`
+# workspaceFiles=`/usr/bin/find $workspace -iname "*.txt" -type f`
 
 _clean() {
-	rm -rfv $tmpOutputDir
+	rm -rfv $workspace
 	rm -rfv $outputFile
 }
 
 _create() {
-	/bin/mkdir -p -v $tmpOutputDir
+	/bin/mkdir -p -v "$regExMatchDir"
     /usr/bin/touch "$tmpOutputFile"
 }
 
@@ -31,15 +36,30 @@ _pdf2txt() {
     $pdf2txt $downloadFile $tmpOutputFile
 }
 
+# _createImportFile() {
+#     local regEx='^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)'
+#     while read LINE; do
+#         # remove double quotes from $regEx
+#         if [[ $LINE =~ $regEx ]]; then 
+#             echo "FOUND U: $LINE"
+#         else 
+#             echo "NOT FOUND." 
+#         fi
+#     done < "$tmpOutputFile"
+# }
+
 _splitTxtFile() {
-	/bin/sh -c "cd $tmpOutputDir && $csplit --quiet --prefix='Note' --suffix-format='%02d.txt' "$tmpOutputFile" '/^May/' '{*}'"
+    # split by month of the year
+    local gCsplit=/usr/local/opt/coreutils/libexec/gnubin/csplit
+    local regEx='^Jan.*\|^Feb.*\|^Mar.*\|^Apr.*\|May.*\|Jun.*\|Jul.*\|Aug.*\|Sep.*\|Oct.*\|Nov.*\|Dec.*'
+    cd $regExMatchDir && "$gCsplit" --prefix="Note" --suffix-format="%02d.txt" "$tmpOutputFile" /"$regEx"/ "{*}"
 }
 
 _createFiles() {
-    echo "$tmpOutputDirFiles"
-	# set -l tmpOutputDirFiles (find $tmpOutputDir -iname "*.txt" -type f)
+    echo "$workspaceFiles"
+	# set -l workspaceFiles (find $workspace -iname "*.txt" -type f)
     #
-	# for txtFile in $tmpOutputDirFiles
+	# for txtFile in $workspaceFiles
 	# 	$gnuSed -i '/^$/d' $txtFile
 	# 	set -l date (cat $txtFile | head -n 1)
 	# 	set -l front (cat $txtFile | head -n 3 | tail -n 1)
@@ -69,9 +89,10 @@ main() {
     _create
     _pdf2txt
     _splitTxtFile
-    _createFiles
+    # _createImportFile
+    # _createFiles
 
-	echo "Output file is @ $outputFile"
+	# echo "Output file is @ $outputFile"
 }
 
 main
